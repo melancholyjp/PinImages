@@ -17,18 +17,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash_screen" translatesAutoresizingMaskIntoConstraints="NO" id="9CC-qg-pNF">
-                                <rect key="frame" x="158" y="413.66666666666669" width="77" height="75"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="77" id="eE9-P2-UJw"/>
-                                    <constraint firstAttribute="height" constant="75" id="vtM-0e-np3"/>
-                                </constraints>
+                                <rect key="frame" x="159.66666666666666" y="413" width="74" height="76.666666666666686"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
-                            <constraint firstItem="9CC-qg-pNF" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="25" id="7aw-hF-Bcm"/>
-                            <constraint firstItem="9CC-qg-pNF" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="tHD-ff-Qyb"/>
+                            <constraint firstItem="9CC-qg-pNF" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="0.16666666666668561" id="7aw-hF-Bcm"/>
+                            <constraint firstItem="9CC-qg-pNF" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="tHD-ff-Qyb"/>
                         </constraints>
                     </view>
                 </viewController>
