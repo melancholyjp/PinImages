@@ -2,8 +2,6 @@
 //  SceneDelegate.swift
 //  PinImages
 //
-//  Created by Александр Гладков on 27.12.2025.
-//
 
 import UIKit
 

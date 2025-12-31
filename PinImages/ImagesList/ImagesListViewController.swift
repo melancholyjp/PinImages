@@ -5,10 +5,18 @@
 
 import UIKit
 
-class ImagesListViewController: UIViewController {
-    @IBOutlet private var tableView: UITableView!
+final class ImagesListViewController: UIViewController {
+    // MARK: - Outlets
     
-    private let photosNames: [String] = Array(0..<20).map{ "\($0)" }
+    @IBOutlet weak private var tableView: UITableView!
+    
+    // MARK: - Properties
+    
+    private enum constants {
+        static let photosCount = 20
+    }
+    
+    private let photosNames: [String] = Array(0..<constants.photosCount).map(String.init)
     
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -16,13 +24,30 @@ class ImagesListViewController: UIViewController {
         formatter.timeStyle = .none
         return formatter
     }()
+    
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupAppearance()
+        setupTableViewInsets()
+    }
+    
+    // MARK: - Setup
+    
+    private func setupAppearance() {
+        let backgroundColor = UIColor(named: "YP Black (iOS)")
+        view.backgroundColor = backgroundColor
+        tableView.backgroundColor = backgroundColor
+    }
+    
+    private func setupTableViewInsets() {
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
 }
+
+// MARK: - CellConfiguration
 
 extension ImagesListViewController {
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
@@ -41,6 +66,8 @@ extension ImagesListViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let image = UIImage(named: photosNames[indexPath.row]) else {
@@ -55,6 +82,8 @@ extension ImagesListViewController: UITableViewDelegate {
         return cellHeight
     }
 }
+
+// MARK: - UITableviewDataSource
 
 extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
