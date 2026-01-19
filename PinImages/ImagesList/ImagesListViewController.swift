@@ -6,6 +6,11 @@
 import UIKit
 
 final class ImagesListViewController: UIViewController {
+    
+    // MARK: - Constants
+    
+    private let showSingleImageSegueIdentifier = "ShowSingleImage"
+    
     // MARK: - Outlets
     
     @IBOutlet weak private var tableView: UITableView!
@@ -24,6 +29,25 @@ final class ImagesListViewController: UIViewController {
         formatter.timeStyle = .none
         return formatter
     }()
+    
+    // MARK: - Segue prepering
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == showSingleImageSegueIdentifier {
+            guard
+                let viewController = segue.destination as? SingleImageViewController,
+                let indexPath = sender as? IndexPath
+            else {
+                assertionFailure("Invalid segue destination")
+                return
+            }
+            
+            let image = UIImage(named: photosNames[indexPath.row])
+            viewController.image = image
+        } else {
+            super.prepare(for: segue, sender: sender)   
+        }
+    }
     
     // MARK: - Lifecycle
 
@@ -80,6 +104,11 @@ extension ImagesListViewController: UITableViewDelegate {
         let scale = imageViewWidth / imageWidth
         let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
         return cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

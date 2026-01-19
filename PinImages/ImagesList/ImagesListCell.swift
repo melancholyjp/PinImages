@@ -13,9 +13,9 @@ final class ImagesListCell: UITableViewCell {
     
     // MARK: - Outlets
     
-    @IBOutlet var cellImage: UIImageView!
-    @IBOutlet var likeButton: UIButton!
-    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet weak var cellImage: UIImageView!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var dateLabel: UILabel!
     
     // MARK: - Setup
     
