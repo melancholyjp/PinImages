@@ -10,6 +10,7 @@ final class AuthViewController: UIViewController {
     // MARK: - Constants
     
     private let showWebViewSegueIdentifier = "showWebView"
+    private let oauth2Service = OAuth2Service.shared
     
     
     // MARK: - Lifecycle
