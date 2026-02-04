@@ -27,23 +27,35 @@ final class OAuth2Service {
         return request
     }
     
-    private func fetchOAuthToken(code: String, completion: @escaping (Result<Data, Error>) -> Void) {
+    func fetchOAuthToken(code: String, completion: @escaping (Result<Data, Error>) -> Void) {
         guard let request = makeOAuthTokenRequest(code: code) else {
-            completion(.failure(NSError(domain: "InvalidURL", code: -1, userInfo: nil)))
+            DispatchQueue.main.async {
+                completion(.failure(NetworkError.invalidRequest))
+                print("Network error, invalid request")
+            }
+            
             return
         }
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error {
-                completion(.failure(error))
-                return
+        let task = URLSession.shared.dataTask(with: request) {
+            [weak self] data, request, error in
+            DispatchQueue.main.async {
+                guard let self else { return }
+                
+                if let error {
+                    completion(.failure(error))
+                    print("Unsplash network error - \(error)")
+                }
+                
+                guard let data else { return }
+                
+                do {
+                    let responseData = try JSONDecoder().decode(OAuthTokenResponseBody.self, from: data)
+                } catch {
+                    completion(.failure(NetworkError.decodingError(error)))
+                    print("Service model decoding error - \(error)")
+                }
             }
-            
-            guard let data else {
-                return completion(.failure(NSError(domain: "Empty data", code: 0, userInfo: nil)))
-            }
-            
-            completion(.success(data))
         }
         
         task.resume()
