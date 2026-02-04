@@ -5,12 +5,17 @@
 
 import UIKit
 
+protocol AuthViewControllerDelegate: AnyObject {
+    func didAuthenticate(_ vc: AuthViewController)
+}
+
 final class AuthViewController: UIViewController {
     
     // MARK: - Constants
     
     private let showWebViewSegueIdentifier = "showWebView"
     private let oauth2Service = OAuth2Service.shared
+    weak var delegate: AuthViewControllerDelegate?
     
     
     // MARK: - Lifecycle
@@ -33,26 +38,21 @@ final class AuthViewController: UIViewController {
 
 extension AuthViewController: WEbViewViewControllerDelegate {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
-        DispatchQueue.main.async { [self] in
-            oauth2Service.fetchOAuthToken(code: code, completion: { [weak self, weak vc] result in
-                guard let self else { return }
-                guard let vc else { return }
-                
-                switch result {
-                case .success(let token):
-                    vc.dismiss(animated: true)
-                    
-                case .failure(let error):
-                    print("Error: \(error)")
-                    vc.dismiss(animated: true)
-                }
-            })
+        vc.dismiss(animated: true)
+        
+        oauth2Service.fetchOAuthToken(code: code) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success:
+                self.delegate?.didAuthenticate(self)
+            case .failure:
+                break
+            }
         }
     }
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
         vc.dismiss(animated: true)
     }
-    
-    
 }

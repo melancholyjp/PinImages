@@ -6,7 +6,7 @@
 import Foundation
 
 final class OAuth2TokenStorage {
-    static var token: String? {
+    var token: String? {
         get {
             return UserDefaults.standard.string(forKey: "oauth2Token")
         }

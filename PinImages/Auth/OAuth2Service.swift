@@ -40,8 +40,7 @@ final class OAuth2Service {
         let task = URLSession.shared.dataTask(with: request) {
             [weak self] data, request, error in
             DispatchQueue.main.async {
-                guard let self else { return }
-                
+                guard let self = self else { return }
                 if let error {
                     completion(.failure(error))
                     print("Unsplash network error - \(error)")
