@@ -19,6 +19,10 @@ final class WebViewViewController: UIViewController {
     @IBOutlet private weak var webView: WKWebView!
     @IBOutlet private weak var progressView: UIProgressView!
     
+    //MARK: - Delegate
+    
+    weak var delegate: WebViewViewControllerDelegate?
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -29,7 +33,7 @@ final class WebViewViewController: UIViewController {
         loadAuthView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         webView.addObserver(
@@ -39,7 +43,7 @@ final class WebViewViewController: UIViewController {
             context: nil)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), context: nil)

@@ -11,7 +11,7 @@ final class OAuth2TokenStorage {
             return UserDefaults.standard.string(forKey: "oauth2Token")
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "oauth2Token")
+            return UserDefaults.standard.set(newValue, forKey: "oauth2Token")
         }
     }
 }

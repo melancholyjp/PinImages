@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NZT-q4-7ea">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uTQ-6H-ZhH">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
@@ -306,12 +306,21 @@
                     <view key="view" contentMode="scaleToFill" id="Pd8-8r-hQq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash_screen_logo" translatesAutoresizingMaskIntoConstraints="NO" id="x0r-IQ-QPO">
+                                <rect key="frame" x="170" y="423.5" width="74" height="77"/>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Z04-wX-TcZ"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="YP Black (iOS)"/>
+                        <constraints>
+                            <constraint firstItem="x0r-IQ-QPO" firstAttribute="centerX" secondItem="Z04-wX-TcZ" secondAttribute="centerX" id="774-mx-h2f"/>
+                            <constraint firstItem="x0r-IQ-QPO" firstAttribute="centerY" secondItem="Z04-wX-TcZ" secondAttribute="centerY" id="V7f-2z-xz0"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <segue destination="NZT-q4-7ea" kind="show" identifier="showAuthenticationScreen" id="STZ-P4-hwG"/>
-                        <segue destination="g4S-tJ-WaK" kind="show" id="YEY-k8-UQQ"/>
+                        <segue destination="NZT-q4-7ea" kind="show" identifier="ShowAuthenticationScreen" id="STZ-P4-hwG"/>
+                        <segue destination="g4S-tJ-WaK" kind="show" identifier="showWebView" id="YEY-k8-UQQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O6g-ff-3M9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -345,6 +354,7 @@
         <image name="ImageListButtonActive" width="30" height="30"/>
         <image name="LikeButtonActive" width="44" height="44"/>
         <image name="ProfileButtonActive" width="30" height="30"/>
+        <image name="Splash_screen_logo" width="74" height="77"/>
         <image name="navbarBackIcon" width="24" height="24"/>
         <namedColor name="YP Black">
             <color red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

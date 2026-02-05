@@ -17,7 +17,7 @@ final class OAuth2Service {
             URLQueryItem(name: "client_secret", value: LoginConstants.secretKey),
             URLQueryItem(name: "grant_type", value: "authorization_code"),
             URLQueryItem(name: "code", value: code),
-            URLQueryItem(name: "redirect_url", value: LoginConstants.redirectURL)
+            URLQueryItem(name: "redirect_uri", value: LoginConstants.redirectURL)
         ]
         
         guard let authTokenUtl = urlComponents.url else { return nil }
@@ -29,10 +29,8 @@ final class OAuth2Service {
     
     func fetchOAuthToken(code: String, completion: @escaping (Result<Data, Error>) -> Void) {
         guard let request = makeOAuthTokenRequest(code: code) else {
-            DispatchQueue.main.async {
-                completion(.failure(NetworkError.invalidRequest))
-                print("Network error, invalid request")
-            }
+            completion(.failure(NetworkError.invalidRequest))
+            print("Network error, invalid request")
             
             return
         }
