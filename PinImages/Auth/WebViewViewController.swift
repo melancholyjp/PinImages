@@ -58,7 +58,7 @@ final class WebViewViewController: UIViewController {
         
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: LoginConstants.accessKey),
-            URLQueryItem(name: "redirect_url", value: LoginConstants.redirectURL),
+            URLQueryItem(name: "redirect_uri", value: LoginConstants.redirectURL),
             URLQueryItem(name: "response_type", value: "code"),
             URLQueryItem(name: "scope", value: LoginConstants.accessScope)
         ]

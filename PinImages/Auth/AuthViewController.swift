@@ -57,9 +57,9 @@ extension AuthViewController: WebViewViewControllerDelegate {
             guard let self = self else { return }
             
             switch result {
-            case .success(let token):
+            case .success:
                 self.delegate?.didAuthenticate(self)
-            case .failure(let token):
+            case .failure:
                 print("OAuth2 bad request")
             }
         }
@@ -67,5 +67,13 @@ extension AuthViewController: WebViewViewControllerDelegate {
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
         vc.dismiss(animated: true)
+    }
+}
+
+extension AuthViewController {
+    private func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
+        oauth2Service.fetchOAuthToken(code: code) { result in
+            completion(result)
+        }
     }
 }
