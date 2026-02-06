@@ -8,10 +8,10 @@ import Foundation
 final class OAuth2TokenStorage {
     var token: String? {
         get {
-            return UserDefaults.standard.string(forKey: "oauth2Token")
+            UserDefaults.standard.string(forKey: "BearerToken")
         }
         set {
-            return UserDefaults.standard.set(newValue, forKey: "oauth2Token")
+            UserDefaults.standard.set(newValue, forKey: "BearerToken")
         }
     }
 }

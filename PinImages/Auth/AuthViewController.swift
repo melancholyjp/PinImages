@@ -15,6 +15,7 @@ final class AuthViewController: UIViewController {
     
     private let showWebViewSegueIdentifier = "showWebView"
     private let oauth2Service = OAuth2Service.shared
+    private let storage = OAuth2TokenStorage()
     weak var delegate: AuthViewControllerDelegate?
     
     // MARK: - Lifecycle
@@ -57,7 +58,8 @@ extension AuthViewController: WebViewViewControllerDelegate {
             guard let self = self else { return }
             
             switch result {
-            case .success:
+            case .success(let token):
+                self.storage.token = token
                 self.delegate?.didAuthenticate(self)
             case .failure:
                 print("OAuth2 bad request")

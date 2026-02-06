@@ -38,7 +38,7 @@ final class SplashViewController: UIViewController {
         }
         
         let tapBarController = UIStoryboard(name: "Main", bundle: .main)
-            .instantiateViewController(withIdentifier: "TabBarController")
+            .instantiateViewController(withIdentifier: "TapBarViewController")
         window.rootViewController = tapBarController
     }
 }

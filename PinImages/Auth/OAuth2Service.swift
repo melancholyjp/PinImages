@@ -9,6 +9,8 @@ final class OAuth2Service {
     static let shared = OAuth2Service()
     private init() {}
     
+    //MARK: - Private functions
+    
     private func makeOAuthTokenRequest(code: String) -> URLRequest? {
         guard var urlComponents = URLComponents(string: "https://unsplash.com/oauth/token") else { return nil }
         
@@ -20,7 +22,10 @@ final class OAuth2Service {
             URLQueryItem(name: "redirect_uri", value: LoginConstants.redirectURL)
         ]
         
-        guard let authTokenUtl = urlComponents.url else { return nil }
+        guard let authTokenUtl = urlComponents.url else {
+            print("Fail to take URL")
+            return nil
+        }
         
         var request = URLRequest(url: authTokenUtl)
         request.httpMethod = "POST"
@@ -38,16 +43,18 @@ final class OAuth2Service {
         let task = URLSession.shared.dataTask(with: request) {
             [weak self] data, request, error in
             DispatchQueue.main.async {
-                guard let self = self else { return }
+                guard self != nil else { return }
                 if let error {
                     completion(.failure(error))
                     print("Unsplash network error - \(error)")
+                    return
                 }
                 
                 guard let data else { return }
                 
                 do {
                     let responseData = try JSONDecoder().decode(OAuthTokenResponseBody.self, from: data)
+                    completion(.success(responseData.accessToken))
                 } catch {
                     completion(.failure(NetworkError.decodingError(error)))
                     print("Service model decoding error - \(error)")

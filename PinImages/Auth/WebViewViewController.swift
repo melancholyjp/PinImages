@@ -6,14 +6,12 @@
 import WebKit
 import UIKit
 
+enum WebViewConstants {
+    static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
+}
+
 final class WebViewViewController: UIViewController {
-    
-    // MARK: - Constants
-    
-    private enum WebViewConstants {
-        static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
-    }
-    
+
     // MARK: - Outlets
     
     @IBOutlet private weak var webView: WKWebView!
@@ -41,6 +39,8 @@ final class WebViewViewController: UIViewController {
             forKeyPath: #keyPath(WKWebView.estimatedProgress),
             options: .new,
             context: nil)
+        
+        updateProgress()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -69,6 +69,8 @@ final class WebViewViewController: UIViewController {
         
         let request = URLRequest(url: url)
         webView.load(request)
+        
+        updateProgress()
     }
     
     override func observeValue(
@@ -97,7 +99,7 @@ extension WebViewViewController: WKNavigationDelegate {
         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
     ) {
         if let code = code(from: navigationAction) {
-            //TODO: process code
+            delegate?.webViewViewController(self, didAuthenticateWithCode: code)
             decisionHandler(.cancel)
         } else {
             decisionHandler(.allow)
@@ -110,11 +112,9 @@ extension WebViewViewController: WKNavigationDelegate {
             let urlComponents = URLComponents(string: url.absoluteString),
             urlComponents.path == "/oauth/authorize/native",
             let items = urlComponents.queryItems,
-            let codeItem = items.first(where: { $0.name == "code" })
-        {
+            let codeItem = items.first(where: { $0.name == "code" }) {
             return codeItem.value
-        } else {
-            return nil
         }
+        return nil
     }
 }
