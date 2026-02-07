@@ -6,6 +6,9 @@
 import Foundation
 
 final class OAuth2Service {
+    
+    //MARK: - Constants
+    
     static let shared = OAuth2Service()
     private init() {}
     

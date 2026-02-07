@@ -7,9 +7,13 @@ import UIKit
 
 final class SplashViewController: UIViewController {
     
+    //MARK: - Constants
+    
     private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
     
     private let storage = OAuth2TokenStorage()
+    
+    //MARK: - Lifecycle
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -21,6 +25,8 @@ final class SplashViewController: UIViewController {
         }
     }
     
+    //MARK: - Override
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -30,6 +36,8 @@ final class SplashViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
+    
+    //MARK: - Private functions
     
     private func switchToTapBarViewController() {
         guard let window = UIApplication.shared.windows.first else {
@@ -42,6 +50,8 @@ final class SplashViewController: UIViewController {
         window.rootViewController = tapBarController
     }
 }
+
+//MARK: - Extensions
 
 extension SplashViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -63,7 +73,5 @@ extension SplashViewController {
 extension SplashViewController: AuthViewControllerDelegate {
     func didAuthenticate(_ vc: AuthViewController) {
         vc.dismiss(animated: true)
-        
-        switchToTapBarViewController()
     }
 }
